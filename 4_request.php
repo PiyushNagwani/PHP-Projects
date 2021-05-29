@@ -1,5 +1,3 @@
-
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -11,8 +9,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
     <title>Hello, world!</title>
-    
-    
   </head>
   <body>
     
@@ -27,9 +23,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     -->
-   
-} );
-
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
@@ -68,51 +61,16 @@
   </div>
 </nav>
 
-<?php
 
-//connecting to the database
-$server='localhost';
-$username='root';
-$password='';
-$database='notes';
-//creating a connection
-$conn=mysqli_connect($server,$username,$password,$database);
-
-//checking the connection
-if(!$conn)
-{
-    die("can't create the connection");
-}
-
-if($_SERVER['REQUEST_METHOD']=='POST')
-{
-    $name=$_POST['name'];
-    $email=$_POST['email'];
-
-  $sql="INSERT INTO `forminsertion` (`sno`, `name`, `email`, `date`) VALUES (NULL, '$name','$email', current_timestamp())";
-  $result=mysqli_query($conn,$sql);
-  echo $result;
-  //checking the data is inserted or not
-  if(!$result)
-  {
-      echo"data is not inserted";
-  
-  }
-  else{
-    'data is inserted ';
-  }
-}
-?>
-
-
-<form action="5_forminsertion.php" method="POST">
+<form action=request.php method=POST>
   <div class="mb-3" style ="margin-left:2">
-    <label for="exampleInputname" class="form-label">Name</label>
-    <input type="text" class="form-control" name="name" id="exampleInputEmail1" aria-describedby="emailHelp">
-      </div>
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  </div>
   <div class="mb-3">
-    <label for="exampleInputemail" class="form-label">email</label>
-    <input type="email" class="form-control" name="email" id="exampleInputPassword1">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input type="password" class="form-control" name="password" id="exampleInputPassword1">
   </div>
   <div class="mb-3 form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -122,3 +80,20 @@ if($_SERVER['REQUEST_METHOD']=='POST')
 </form>
   </body>
 </html>
+<?php
+if($_SERVER['REQUEST_METHOD']=='POST')
+{
+    $email=$_POST['email'];
+    $password=$_POST['password'];
+
+echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+<strong>successful</strong> your email '.$email.'  and your password '.$password.' is submited successfully
+<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>';
+}
+// if ($email=="" && $password=="")
+// {
+//   echo 'your email should not be empty'.$email;
+//   echo 'your password shuld not be empty'.$password;
+// }
+?>
