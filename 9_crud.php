@@ -5,6 +5,7 @@ $username="root";
 $password="";
 $database="notes";
 
+
 $conn=mysqli_connect($servername,$username,$password,$database);
 
 //checking the connection
@@ -13,23 +14,24 @@ if(!$conn)
 {
   die("sorry we failed to connect <br>".mysqli_connect_error());
 }
-echo $_SERVER['REQUEST_METHOD'];
 if($_SERVER['REQUEST_METHOD']=='POST')
 {
   $title=$_POST['title'];
   $descriptin=$_POST['descriptin'];
 
-$sql="INSERT INTO `crud` (`title`, `descriptin`) VALUES ($title, $descriptin)";
+
+$sql="INSERT INTO `crud` (`sno`, `title`, `descriptin`, `date`) VALUES (NULL, '$title', '$descriptin', current_timestamp())";
 $result=mysqli_query($conn,$sql);
-if($result)
+echo $result;
+
+if(!$result)
 {
-  echo "record inserted successfully";
-}
-else
-{
-  echo "record not inserted ".mysqli_error($conn);
+  echo "data is not inserted because of this error -->".mysqli_connect_error();
 }
 }
+
+
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -42,6 +44,7 @@ else
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
     <title>inotes-project</title>
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
   </head>
   <body>
     <h1><nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -98,9 +101,10 @@ else
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 </div>
-<div class="container">
+<div class="container my-4">
+<hr>
 
-<table class="table">
+<table class="table" id="myTable">
   <thead>
     <tr>
       <th scope="col">S.no</th>
@@ -142,5 +146,14 @@ while($row=mysqli_fetch_assoc($result)){
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     -->
+    <script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+
+  <script src=//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js></script>
+ <script>$(document).ready( function () {
+    $('#myTable').DataTable();
+} );</script>
   </body>
 </html>
